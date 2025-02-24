@@ -1,0 +1,10 @@
+.top {
+    padding: 40px 0 32px;
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+}

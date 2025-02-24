@@ -1,4 +1,6 @@
-import Header from "./componets/widgets/Header"
+import Home from "./pages/Home";
+
+import Header from "./componets/widgets/Header";
 
 function App() {
 
@@ -7,7 +9,7 @@ function App() {
       <Header />
 
       <main className="main">
-
+        <Home />
       </main>
     </div>
   )

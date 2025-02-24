@@ -1,0 +1,102 @@
+.sort {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &.open {
+        .sort__active-icon {
+            rotate: 360deg;
+        }
+
+        .sort__list {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+    }
+
+    &__active {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    &__active-content {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 14px;
+        font-weight: 700;    
+    }
+
+    &__active-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: rgb(254, 95, 30);
+        
+        img {
+            width: 17px;
+            height: 13px;    
+        }
+    }
+
+    &__active-icon {
+        rotate: 180deg;
+        width: 10px;
+        height: 10px;
+        transition: all .5s;
+    }
+
+    &__list {
+        opacity: 0;
+        visibility: 0;
+        transform: translateX(30%);
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: fit-content;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.09);
+        background-color: rgb(255, 255, 255); 
+        padding: 13px 0 9px;  
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        z-index: 10;
+        transition: transform .5s, opacity .5s;
+    }
+
+    &__link {
+        padding: 10px 14px;
+        color: rgb(0, 0, 0);
+        font-size: 14px;
+        font-weight: 700;   
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        transition: color .2s, background-color .5s;
+
+        &.active {
+            background-color: rgba(254, 95, 30, 0.05) ;
+            color: rgb(254, 95, 30)  ;
+
+            &:hover {
+                background-color: rgba(254, 95, 30, 0.05) ;
+                color: rgb(254, 95, 30) 
+            }
+        }
+
+        &:hover {
+            background-color: rgba(191, 69, 20, 0.05) ;
+            color: rgb(254, 95, 30) 
+        }
+    }
+
+    &__link-icon {
+        width: 17px;
+        height: 13px;
+    }
+}

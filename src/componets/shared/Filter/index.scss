@@ -1,0 +1,32 @@
+.filter {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+
+    &__btn {
+        border-radius: 30px;
+        background-color: rgb(249, 249, 249);   
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .5s;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.17;
+        padding: 10px 30px;
+        min-height: 46px;   
+
+        &.active {
+            background-color: #282828;
+            color:#fff;
+
+            &:hover {
+                background-color: #282828;
+            }
+        }
+
+        &:hover {
+            background-color: rgb(175, 175, 175);   
+        }
+    }
+}
