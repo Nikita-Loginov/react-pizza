@@ -1,0 +1,21 @@
+.pizzas {
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    &__title {
+        color: rgb(0, 0, 0);
+        font-size: 32px;
+        font-weight: 700;   
+        line-height: 1.21; 
+    }
+
+    &__items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 65px 35px;
+        justify-content: space-between;
+    }
+}
