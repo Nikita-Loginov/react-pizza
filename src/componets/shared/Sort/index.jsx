@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { MyContext } from "../../../App";
 
 import "./index.scss";
 
@@ -8,36 +9,32 @@ export default function Sort() {
       name: "популярности",
       icon: "/icons/arrow-up.svg",
       detail: "asc",
+      sortProperty: "rating",
     },
     {
       name: "популярности",
       icon: "/icons/arrow-down.svg",
       detail: "desc",
+      sortProperty: "rating",
     },
     {
       name: "по цене",
       icon: "/icons/arrow-up.svg",
       detail: "asc",
+      sortProperty: "price",
     },
     {
       name: "по цене",
       icon: "/icons/arrow-down.svg",
       detail: "desc",
-    },
-    {
-      name: "по алфавиту",
-      icon: "/icons/arrow-up.svg",
-      detail: "asc",
-    },
-    {
-      name: "по алфавиту",
-      icon: "/icons/arrow-down.svg",
-      detail: "desc",
+       sortProperty: 'price'
     },
   ];
 
+  const value = useContext(MyContext)
+
   const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
@@ -45,6 +42,7 @@ export default function Sort() {
 
   const changeActiveIndex = (indexActive) => {
     setActiveIndex(() => indexActive);
+    value.sortInfo.setActiveSort(items[indexActive])
     setIsOpen(() => false);
   };
 

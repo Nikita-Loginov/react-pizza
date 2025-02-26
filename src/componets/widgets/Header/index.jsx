@@ -1,12 +1,14 @@
-import './index.scss'
+import { Link } from "react-router";
+
+import './index.scss';
 
 export default function Header() {
   return (
     <header className="header">
       <div className="container">
         <div className="header__inner">
-          <a
-            href="#"
+          <Link
+            to='/'
             className="header__logo"
             aria-label="перейти на главную"
             title="Главная"
@@ -26,10 +28,10 @@ export default function Header() {
                 самая вкусная пицца во вселенной
               </span>
             </div>
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            to="/cart"
             className="header__details"
             aria-label="перейти в корзину"
             title="Корзина"
@@ -47,7 +49,7 @@ export default function Header() {
 
               <span className="header__details-count-number">3</span>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </header>
