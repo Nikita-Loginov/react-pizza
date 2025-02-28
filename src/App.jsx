@@ -19,6 +19,8 @@ function App() {
     detail: "desc",
     sortProperty: "rating",
   });
+  const [countItems, setCountItems] = useState(0);
+  const [activePage, setActivePage] = useState(0);
 
   const filterInfo = {
     activeIndexFilter,
@@ -27,13 +29,19 @@ function App() {
 
   const sortInfo = {
     activeSort,
-    setActiveSort
-  }
+    setActiveSort,    
+  };
+
+  const paginationInfo = {
+    countItems,
+    activePage,
+    setActivePage
+  };
 
   useEffect(() => {
-    setIsLoading(false);
+    // setIsLoading(false);
 
-    const getPizzas = async () => {
+    const getCountItems = async () => {
       try {
         const result = await axios.get(
           `https://6741cf43e4647499008ed9f7.mockapi.io/items?category=${
@@ -41,18 +49,49 @@ function App() {
           }&sortBy=${activeSort.sortProperty}&order=${activeSort.detail}`
         );
 
-        setPizzas(() => result.data);
-        setIsLoading(() => true);
+        getPizzas(result.data);
+        setCountItems(result.data.length);
       } catch (error) {
-        console.error("Ошибка при получение пицц:", error);
+        console.error("Ошибка при получение количества:", error);
       }
     };
 
-    getPizzas();
-  }, [activeIndexFilter, activeSort]);
+    const getPizzas = (pizzas) => {
+      // console.log(activePage)
+      const arr = activePage ? pizzas.slice(activePage * 4, (4 * (activePage)) + 4) : pizzas.slice(activePage, (4 * (activePage)) + 4);
+      setPizzas(() => arr);
+      setIsLoading(() => true);
+    };
+
+    getCountItems();
+  }, [activeIndexFilter, activeSort, activePage]);
+
+  // useEffect(() => {
+  //   setIsLoading(false);
+
+  //   const getPizzas = async () => {
+  //     try {
+  //       const result = await axios.get(
+  //         `https://6741cf43e4647499008ed9f7.mockapi.io/items?page=${activePage}&limit=4&category=${
+  //           activeIndexFilter ? activeIndexFilter : ""
+  //         }&sortBy=${activeSort.sortProperty}&order=${activeSort.detail}`
+  //       );
+
+  //       setPizzas(() => result.data);
+  //       setIsLoading(() => true);
+  //       console.log(result.data.length)
+  //     } catch (error) {
+  //       console.error("Ошибка при получение пицц:", error);
+  //     }
+  //   };
+
+  //   getPizzas();
+  // }, [countItems]);
 
   return (
-    <MyContext.Provider value={{ pizzas, isLoading, filterInfo, sortInfo }}>
+    <MyContext.Provider
+      value={{ pizzas, isLoading, filterInfo, sortInfo, paginationInfo }}
+    >
       <div className="wrapper">
         <Header />
 

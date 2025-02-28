@@ -3,6 +3,7 @@ import { MyContext } from "../../../App";
 
 import Pizza from "./part/Pizza";
 import Skeleton from '../Skeleton'
+import Pagination from "../Pagination";
 
 import './index.scss';
 
@@ -20,6 +21,8 @@ export default function Pizzas() {
           <div className="pizzas__items">
             {isLoading ? items.map((item) => <Pizza key={item.id} item={{...item}}/>) : [...new Array(8)].map((_, index) => <Skeleton key={index}/>)}
           </div>
+
+          <Pagination />
         </div>
       </div>
     </section>

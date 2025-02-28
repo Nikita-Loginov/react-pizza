@@ -17,16 +17,18 @@ export default function Filter() {
 
   const activeIndex = value.filterInfo.activeIndexFilter;
 
-  // const changeActiveIndex = (activeIndex) => {
-  //   setActiveIndex(() => activeIndex)
-  // }
+  const changeActiveIndex = (activeIndex) => {
+    value.paginationInfo.setActivePage(0)
+    console.log(activeIndex)
+    value.filterInfo.setActiveIndexFilter(activeIndex)
+  }
 
   return (
     <div className="filter">
       {items.map((itemText, index) => (
         <button
           key={itemText}
-          onClick={() => value.filterInfo.setActiveIndexFilter(index)}
+          onClick={() => changeActiveIndex(index)}
           className={`filter__btn ${index === activeIndex ? "active" : ""}`}
         >
           {itemText}
