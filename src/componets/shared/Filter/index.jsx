@@ -1,27 +1,27 @@
-import { useContext } from "react";
-import { MyContext } from "../../../App";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setActiveIndexFilter } from "../../../redux/slices/filters";
+import { setActivePage } from "../../../redux/slices/pagination";
 
 import "./index.scss";
 
+const items = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+
 export default function Filter() {
-  const value = useContext(MyContext);
-
-  const items = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
-
-  const activeIndex = value.filterInfo.activeIndexFilter;
+  const activeIndex = useSelector((state) => state.filters.activeIndexFilter);
+  const dispatch = useDispatch();
 
   const changeActiveIndex = (activeIndex) => {
-    value.paginationInfo.setActivePage(0)
-    console.log(activeIndex)
-    value.filterInfo.setActiveIndexFilter(activeIndex)
-  }
+    dispatch(setActiveIndexFilter(activeIndex));
+    dispatch(setActivePage(0))
+  };
 
   return (
     <div className="filter">

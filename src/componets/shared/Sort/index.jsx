@@ -1,37 +1,39 @@
-import { useEffect, useState, useContext } from "react";
-import { MyContext } from "../../../App";
+import { useEffect, useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { setActiveSort } from "../../../redux/slices/filters";
 
 import "./index.scss";
 
-export default function Sort() {
-  const items = [
-    {
-      name: "популярности",
-      icon: "/icons/arrow-up.svg",
-      detail: "asc",
-      sortProperty: "rating",
-    },
-    {
-      name: "популярности",
-      icon: "/icons/arrow-down.svg",
-      detail: "desc",
-      sortProperty: "rating",
-    },
-    {
-      name: "по цене",
-      icon: "/icons/arrow-up.svg",
-      detail: "asc",
-      sortProperty: "price",
-    },
-    {
-      name: "по цене",
-      icon: "/icons/arrow-down.svg",
-      detail: "desc",
-       sortProperty: 'price'
-    },
-  ];
+const items = [
+  {
+    name: "популярности",
+    icon: "/icons/arrow-up.svg",
+    detail: "asc",
+    sortProperty: "rating",
+  },
+  {
+    name: "популярности",
+    icon: "/icons/arrow-down.svg",
+    detail: "desc",
+    sortProperty: "rating",
+  },
+  {
+    name: "по цене",
+    icon: "/icons/arrow-up.svg",
+    detail: "asc",
+    sortProperty: "price",
+  },
+  {
+    name: "по цене",
+    icon: "/icons/arrow-down.svg",
+    detail: "desc",
+    sortProperty: "price",
+  },
+];
 
-  const value = useContext(MyContext)
+export default function Sort() {
+  const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(1);
@@ -42,7 +44,7 @@ export default function Sort() {
 
   const changeActiveIndex = (indexActive) => {
     setActiveIndex(() => indexActive);
-    value.sortInfo.setActiveSort(items[indexActive])
+    dispatch(setActiveSort(items[indexActive]));
     setIsOpen(() => false);
   };
 

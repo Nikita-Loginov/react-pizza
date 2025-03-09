@@ -1,12 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-
-import { MyContext } from "../../../App";
+import { useEffect, useState } from "react";
 
 import "./index.scss";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { setActivePage } from "../../../redux/slices/pagination";
+
 export default function Pagination() {
-  const value = useContext(MyContext);
-  const paginationInfo = value.paginationInfo;
+  const paginationInfo = useSelector((state => state.pagination));
+  const dispatch = useDispatch();
   const [isPagination, setIsPagination] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Pagination() {
             className={`pagination__link ${
               (i) === paginationInfo.activePage ? "active" : ""
             }`}
-            onClick={() => paginationInfo.setActivePage(i)}
+            onClick={() => dispatch(setActivePage(i))}
           >
             {i + 1}
           </li>
@@ -48,12 +50,11 @@ export default function Pagination() {
     if (value === 'next') {
         const activePage = (paginationInfo.activePage + 1) === (countPage) ? countPage - 1 : (paginationInfo.activePage + 1)
 
-        paginationInfo.setActivePage(activePage)
+        dispatch(setActivePage(activePage))
     } else if (value === 'prev') {
-        console.log(paginationInfo.activePage - 1)
         const activePage = (paginationInfo.activePage - 1) === -1 ? 0 : (paginationInfo.activePage - 1)
 
-        paginationInfo.setActivePage(activePage)
+        dispatch(setActivePage(activePage))
     }
   }
 
