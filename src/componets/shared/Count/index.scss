@@ -1,0 +1,41 @@
+.count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 2px solid rgb(254, 95, 30);
+        background-color: #fff;    
+        border-radius: 50%;
+        color:#FE5F1E;
+        font-size: 26px;
+        flex-shrink: 0;
+        transition: all .5s;
+
+        &:hover,
+        &:active,
+        &:focus {
+            background-color: rgb(254, 95, 30);
+            color:#fff;
+        }
+    }
+
+    &__numb {
+        color:#000;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+        max-width: 40px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

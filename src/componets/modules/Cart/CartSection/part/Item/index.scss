@@ -1,0 +1,96 @@
+.cart-item {
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  gap: 20px;
+
+  &:not(:last-of-type) {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+
+  &:first-of-type {
+    padding-top: 30px;
+    border-top: 1px solid #f4f4f4;
+  }
+
+  &__info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  &__img {
+    max-width: 80px;
+  }
+
+  &__textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1.22;
+  }
+
+  &__name {
+    color: rgb(0, 0, 0);
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  &__descr {
+    color: rgb(141, 141, 141);
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  &__details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.22;
+    color: #000;
+  }
+
+  &__delete {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(215, 215, 215);
+    background-color: #fff;
+    transition: all 0.5s;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: rgb(254, 95, 30);
+        border-color: rgb(254, 95, 30);
+        
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+
+    svg {
+      width: 10px;
+      height: 10px;
+
+      path {
+        transition: all 0.5s;
+      }
+    }
+  }
+}

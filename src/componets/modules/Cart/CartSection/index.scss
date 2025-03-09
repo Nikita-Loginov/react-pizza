@@ -1,0 +1,139 @@
+.cart {
+  padding: 90px 0 130px;
+
+  &__inner {
+    max-width: 820px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__head-title {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    color: rgb(0, 0, 0);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.21;
+  }
+
+  &__head-title-icon,
+  &__head-remote-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__head-title-icon {
+    transform: translateY(-2px);
+  }
+
+  &__head-remote {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: rgb(182, 182, 182);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.18;
+    background-color: transparent;
+    transition: all 0.2s;
+
+    &:hover {
+      color: #000;
+
+      svg {
+        path {
+          stroke: #000;
+        }
+      }
+    }
+
+    svg {
+      path {
+        transition: all 0.2s;
+      }
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__itog {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+  }
+
+  &__itog-length {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.22;
+    color: #000;
+  }
+
+  &__itog-length-numb {
+    font-weight: 700;
+    transform: translateY(1px);
+  }
+
+  &__itog-price {
+    font-size: 22px;
+    font-weight: 400;  
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  &__itog-price-summ {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  &___footer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &___footer-edit {
+    border: 1px solid rgb(211, 211, 211);
+    border-radius: 30px;
+    background-color: rgb(255, 255, 255);  
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px;
+    color: rgb(202, 202, 202);
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;  
+  }
+}
