@@ -1,34 +1,49 @@
 import Count from "../../../../../shared/Count";
+import { removeItem } from "../../../../../../redux/slices/cart";
 
-import './index.scss'
+import { useDispatch } from "react-redux";
 
-export default function Item() {
+import './index.scss';
+
+const typesNames = ["тонкое", "традиционное"];
+
+export default function Item({item, setItemsBox}) {
+  const dispatch = useDispatch()
+
+  const deleteItem = () => {
+    const info = {
+      item: {...item},
+      delete: 2 //удалить полностью
+    }
+    dispatch(removeItem(info))
+    // setItemsBox()
+  }
   return (
     <div className="cart-item">
       <div className="cart-item__info">
         <img
-          src="https://media.dodostatic.net/image/r:292x292/11ee7d611adf5aad898b8b651186e023.jpg"
-          alt="фотография пиццы"
+          src={item.imageUrl}
+          alt={`фотография пиццы ${item.title}`}
           className="cart-item__img"
         />
 
         <div className="cart-itembox">
-          <h2 className="cart-item__name">Сырный цыпленок</h2>
+          <h2 className="cart-item__name">{item.title}</h2>
 
-          <p className="cart-item__descr">тонкое тесто, 26 см.</p>
+          <p className="cart-item__descr">{`${typesNames[item.typeActive]} тесто, ${item.sizeActive} см.`}</p>
         </div>
       </div>
 
       <div className="cart-item__details">
-        <Count />
+        <Count item={{...item}}/>
 
         <div className="cart-item__price">
-          <p className="cart-item__peice-num">770</p>
+          <p className="cart-item__peice-num">{item.price}</p>
 
-          <p className="cart-item__price-currenty">₽</p>
+          <p className="cart-item__price-currenty">{item.currency}</p>
         </div>
 
-        <button className="cart-item__delete">
+        <button className="cart-item__delete" onClick={deleteItem}>
           <svg
             xmlnsXlink="http://www.w3.org/1999/xlink"
             width="8.116211"

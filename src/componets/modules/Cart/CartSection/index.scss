@@ -72,6 +72,19 @@
     gap: 30px;
   }
 
+  &__items-box,
+  &__items-boxs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__items-head {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+
   &__footer {
     display: flex;
     flex-direction: column;

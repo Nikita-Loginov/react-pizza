@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 
+import { useSelector } from "react-redux";
+
 import './index.scss';
 
 export default function Header() {
+  const {totalPrice, totalCount} = useSelector(state => state.cart)
   return (
     <header className="header">
       <div className="container">
@@ -37,7 +40,7 @@ export default function Header() {
             title="Корзина"
           >
             <div className="header__details-item header__details-price">
-              <span className="header__details-price-summ">520</span>
+              <span className="header__details-price-summ">{totalPrice}</span>
 
               <span className="header__details-price-currenty">₽</span>
             </div>
@@ -47,7 +50,7 @@ export default function Header() {
                 <img src="/icons/cart.svg" alt="иконка корзины" />
               </span>
 
-              <span className="header__details-count-number">3</span>
+              <span className="header__details-count-number">{totalCount}</span>
             </div>
           </Link>
         </div>

@@ -1,23 +1,42 @@
 import { useState } from "react";
 
+import { addItem } from "../../../../../redux/slices/cart";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 import "./index.scss";
 
+const typesNames = ["тонкое", "традиционное"];
+const sizesNames = [
+  {
+    massa: 26,
+    currency: "см",
+  },
+  {
+    massa: 30,
+    currency: "см",
+  },
+  {
+    massa: 40,
+    currency: "см",
+  },
+];
+
 export default function Pizza({ item }) {
-  const typesNames = ["тонкое", "традиционное"];
-  const sizesNames = [
-    {
-      massa: 26,
-      currency: "см",
-    },
-    {
-      massa: 30,
-      currency: "см",
-    },
-    {
-      massa: 40,
-      currency: "см",
-    },
-  ];
+  const count = useSelector(state => {
+    let countInner = 0;
+
+    state.cart.items.map((pizza) => {
+      if (pizza.id === item.id) {
+        countInner += pizza.count
+      }
+    })
+
+    return countInner
+  }
+  )
+
+  const dispatch = useDispatch()
 
   const [activeTypeIndex, setActiveTypeIndex] = useState(item.types[0]);
   const [activeSizeIndex, setActiveSizeIndex] = useState(item.sizes[0]);
@@ -29,6 +48,11 @@ export default function Pizza({ item }) {
       setActiveSizeIndex(() => mean);
     }
   };
+
+  const addPizzaInCart = () => {
+    const newObj = {...item, sizeActive: activeSizeIndex, typeActive: activeTypeIndex}
+    dispatch(addItem(newObj))
+  }
 
   return (
     <div className="pizza">
@@ -94,7 +118,7 @@ export default function Pizza({ item }) {
             от {item.price} {item.currency}
           </p>
 
-          <button className="cart-add">
+          <button className={`cart-add ${count ? 'active' : ''}`} onClick={addPizzaInCart}>
             <span className="cart-add__icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +141,7 @@ export default function Pizza({ item }) {
 
             <span className="cart-add__text">Добавить</span>
 
-            <span className="cart-add__count">2</span>
+            <span className="cart-add__count">{count}</span>
           </button>
         </div>
       </div>

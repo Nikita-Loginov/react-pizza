@@ -1,17 +1,15 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Top from "../componets/shared/Top";
 import Pizzas from "../componets/shared/Pizzas";
 
 import { setCountItems } from "../redux/slices/pagination";
+import { fetchPizzas, setPizzas } from "../redux/slices/pizzas";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [pizzas, setPizzas] = useState([]);
-
+  const {items} = useSelector(state => state.pizzas);
 
   const {activeIndexFilter, activeSort} = useSelector(
     (state) => state.filters
@@ -22,34 +20,30 @@ export default function Home() {
   useEffect(() => {
     const getCountItems = async () => {
       try {
-        const result = await axios.get(
-          `https://6741cf43e4647499008ed9f7.mockapi.io/items?category=${
-            activeIndexFilter ? activeIndexFilter : ""
-          }&sortBy=${activeSort.sortProperty}&order=${activeSort.detail}`
-        );
+        const result = await dispatch(fetchPizzas({activeIndexFilter, activeSort})).unwrap()
 
-        getPizzas(result.data);
-        dispatch(setCountItems(result.data.length));
+        getPizzas(result);
+        dispatch(setCountItems(result.length));
       } catch (error) {
         console.error("Ошибка при получение количества:", error);
       }
     };
 
-    const getPizzas = (pizzas) => {
+    const getPizzas = (items) => {
       const arr = activePage
-        ? pizzas.slice(activePage * 4, 4 * activePage + 4)
-        : pizzas.slice(activePage, 4 * activePage + 4);
-      setPizzas(() => arr);
+        ? items.slice(activePage * 4, 4 * activePage + 4)
+        : items.slice(activePage, 4 * activePage + 4);
+        dispatch(setPizzas((arr)))
     };
 
     getCountItems();
-  }, [activeIndexFilter, activeSort, activePage]);
+  }, [activeIndexFilter, activeSort, activePage, dispatch]);
 
   return (
     <>
       <Top />
 
-      <Pizzas pizzas={pizzas} />
+      <Pizzas pizzas={items} />
     </>
   );
 }

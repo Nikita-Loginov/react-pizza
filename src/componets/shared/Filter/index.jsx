@@ -28,6 +28,8 @@ export default function Filter() {
       {items.map((itemText, index) => (
         <button
           key={itemText}
+          title={itemText}
+          aria-label={`выбрать категорию ${itemText}`}
           onClick={() => changeActiveIndex(index)}
           className={`filter__btn ${index === activeIndex ? "active" : ""}`}
         >
