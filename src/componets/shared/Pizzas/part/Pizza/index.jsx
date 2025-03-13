@@ -4,6 +4,8 @@ import { addItem } from "../../../../../redux/slices/cart";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
+import { Link } from "react-router";
+
 import "./index.scss";
 
 const typesNames = ["тонкое", "традиционное"];
@@ -56,7 +58,7 @@ export default function Pizza({ item }) {
 
   return (
     <div className="pizza">
-      <div className="pizza__img-box">
+      <Link to={`/pizza/${item.id}`} className="pizza__img-box">
         <img
           src={item.imageUrl}
           alt={`пицца ${item.title.toLowerCase()}`}
@@ -78,7 +80,7 @@ export default function Pizza({ item }) {
 
           <div className="pizza__rating-numb">({item.rating})</div>
         </div>
-      </div>
+      </Link>
 
       <div className="pizza__content">
         <h2 className="pizza__name">{item.title}</h2>

@@ -1,0 +1,32 @@
+.pizzaInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 7px 10px 12px 0px rgba(34, 60, 80, 0.2);
+    max-width: 300px;
+    border-radius: 20px;
+
+    &__img {
+        max-width: 100%;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+
+    &__name {
+        font-size: 30px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    &__rating,
+    &__price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 5px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

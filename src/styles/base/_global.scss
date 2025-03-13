@@ -1,58 +1,132 @@
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 
 html,
-body{
-    height: 100%;
+body {
+  height: 100%;
 }
 
-body{
-    font-size: 16px;
-    line-height: 1.17;
-    padding: 43px 0 63px;
-    overflow-x: hidden;
-    font-family: "Proximanova";
-    font-weight: 400;
-    color: rgb(44, 44, 44);
-    background-color: #FFDF8C;
+body {
+  font-size: 16px;
+  line-height: 1.17;
+  padding: 43px 0 63px;
+  overflow-x: hidden;
+  font-family: "Proximanova";
+  font-weight: 400;
+  color: rgb(44, 44, 44);
+  background-color: #ffdf8c;
 }
 
-.wrapper{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.03);
-    background-color: rgb(255, 255, 255)   ;
-    max-width: 1340px;
-    margin: 0 auto;
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.03);
+  background-color: rgb(255, 255, 255);
+  max-width: 1340px;
+  margin: 0 auto;
 }
 
-.main{
-    flex:1;
+.main {
+  flex: 1;
 }
 
-.container{
-    max-width: calc(1225px + 30px);
-    margin: 0 auto;
-    padding: 0 15px;
+.container {
+  max-width: calc(1225px + 30px);
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 30px;
+  padding: 18px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.5s;
+  background-color: #282828;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.notFound {
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  &__textbox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &__link {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: fit-content;
+    margin: 0 auto;
     border-radius: 30px;
     padding: 18px 22px;
     font-size: 16px;
     font-weight: 700;
-    color:#fff;
-    transition: all .5s;
-    background-color: #282828;
+    color: #fff;
+    background-color: rgb(254, 95, 30);
+    transition: all 0.5s;
 
     &:hover {
-        transform: translateY(-4px);
+      transform: translateY(-4px);
     }
+  }
 }
+
+.pizzaFull {
+  padding: 100px 0;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  &__another {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h2 {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 65px 35px;
+    justify-content: space-between;
+  }
+}
+
