@@ -13,22 +13,24 @@ import "./index.scss";
 import { RootState } from "../../../../redux/store";
 
 import { CartPizzaType } from "../../../../types/PizzaTypes";
-
+import {
+  calculateTotalCount,
+  calculateTotalPrice,
+} from "../../../../utils/functions/cart";
 
 interface ItemEntry {
-  items: CartPizzaType[]; 
+  items: CartPizzaType[];
 }
 
 type ItemsBoxType = Record<string, ItemEntry>;
 
-
-
 const CartSection = memo(() => {
   const [itemsBox, setItemsBox] = useState<ItemsBoxType>({});
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const dispatch = useDispatch();
 
-  const items = useSelector((state : RootState) => state.cart.items);
-  const { totalPrice, totalCount } = useSelector((state : RootState) => state.cart);
+  const items = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
     const newItemsBox = {};
@@ -42,6 +44,11 @@ const CartSection = memo(() => {
     });
 
     setItemsBox(newItemsBox);
+    const priceItog = calculateTotalPrice(items);
+    const countItog = calculateTotalCount(items);
+
+    setTotalPrice(() => priceItog);
+    setTotalCount(() => countItog);
   }, [items]);
 
   const clearAllItems = () => {

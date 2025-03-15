@@ -12,6 +12,7 @@ const initialState: PizzasState = {
   loading: "loading",
 };
 
+
 export const fetchPizzas = createAsyncThunk<PizzaType[], { activeIndexFilter: number | null; activeSort: { sortProperty: string; detail: string } }>(
   "pizzas/fetchPizzas",
   async ({ activeIndexFilter, activeSort }) => {
@@ -35,6 +36,7 @@ export const pizzasSlice = createSlice({
     builder
       .addCase(fetchPizzas.pending, (state) => {
         state.loading = "loading";
+        state.items = []
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
         state.items = action.payload; 

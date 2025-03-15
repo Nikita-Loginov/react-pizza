@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartPizzaType } from "../../types/PizzaTypes";
 
 interface CartType {
-  totalPrice: number;
-  totalCount: number;
   items : CartPizzaType[];
 }
 
@@ -12,10 +10,15 @@ interface RemoveItemPayload {
   delete: number; 
 }
 
+const getPizzasInLC = () : CartPizzaType[] => {
+  const pizzas = localStorage.getItem('cart');
+
+  return pizzas ? JSON.parse(pizzas) : []
+}
+
+
 const initialState: CartType = {
-  items: [],
-  totalPrice: 0,
-  totalCount: 0,
+  items: getPizzasInLC(),
 };
 
 export const cartSlice = createSlice({
@@ -34,13 +37,9 @@ export const cartSlice = createSlice({
       if (!cartItem) {
         const newObj = { ...action.payload, count: 1 };
         state.items.push(newObj);
-        state.totalCount += 1;
       } else {
         cartItem.count += 1;
-        state.totalCount += 1;
       }
-
-      state.totalPrice += action.payload.price;
     },
 
     removeItem: (state, action: PayloadAction<RemoveItemPayload>) => {
@@ -58,9 +57,6 @@ export const cartSlice = createSlice({
         if (findItem) {
           findItem.count -= 1
         }
-
-        state.totalCount -= 1
-        state.totalPrice -= item.price
       } else if (action.payload.delete === 2) {
         const cartItems = state.items.filter((pizza) => {
           if (
@@ -74,19 +70,12 @@ export const cartSlice = createSlice({
           }
         });
 
-        const priceInner = item.count * item.price;
-
-        state.totalPrice -= priceInner
-        state.totalCount -= item.count
-
         state.items = [...cartItems];
       }
     },
 
     clearCart: (state) => {
       state.items = [];
-      state.totalCount = 0;
-      state.totalPrice = 0;
     },
   },
 });

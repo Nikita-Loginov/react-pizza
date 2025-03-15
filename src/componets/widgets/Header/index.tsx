@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import { useSelector } from "react-redux";
 
 import { RootState } from "../../../redux/store";
 
+import { calculateTotalPrice, calculateTotalCount } from "../../../utils/functions/cart";
+
 import './index.scss';
 
 export default function Header() {
-  const {totalPrice, totalCount} = useSelector((state: RootState) => state.cart);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const {items} = useSelector((state: RootState) => state.cart);
+
+
+  useEffect(() => {
+    if (localStorage.getItem('cart')) {
+      localStorage.setItem('cart',JSON.stringify(items))
+    } else {
+      localStorage.setItem('cart', JSON.stringify([]))
+    }
+
+    const priceItog =  calculateTotalPrice(items);
+    const countItog =  calculateTotalCount(items);
+
+    setTotalPrice(() => priceItog)
+    setTotalCount(() => countItog)
+    
+  }, [items])
   
   return (
     <header className="header">
