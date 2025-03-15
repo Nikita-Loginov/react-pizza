@@ -1,14 +1,23 @@
+import React from "react";
+
 import Count from "../../../../../shared/Count";
 import { removeItem } from "../../../../../../redux/slices/cart";
 
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../../redux/store";
+
+import { CartPizzaType } from "../../../../../../types/PizzaTypes";
 
 import './index.scss';
 
 const typesNames = ["тонкое", "традиционное"];
 
-export default function Item({item, setItemsBox}) {
-  const dispatch = useDispatch()
+interface ItemTtype {
+    item : CartPizzaType
+}
+
+const Item : React.FC<ItemTtype> = ({item}) => {
+  const dispatch = useDispatch<AppDispatch>()
 
   const deleteItem = () => {
     const info = {
@@ -16,7 +25,6 @@ export default function Item({item, setItemsBox}) {
       delete: 2 //удалить полностью
     }
     dispatch(removeItem(info))
-    // setItemsBox()
   }
   return (
     <div className="cart-item">
@@ -65,3 +73,5 @@ export default function Item({item, setItemsBox}) {
     </div>
   );
 }
+
+export default Item;

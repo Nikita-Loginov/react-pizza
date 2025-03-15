@@ -4,7 +4,7 @@ import pagination from "./slices/pagination";
 import cart from "./slices/cart";
 import pizzas from "./slices/pizzas";
 
-export const store = configureStore({
+const store = configureStore({
     reducer: {
         filters,
         pagination,
@@ -12,3 +12,8 @@ export const store = configureStore({
         pizzas
     }
 })
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store

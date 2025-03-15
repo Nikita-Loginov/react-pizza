@@ -1,9 +1,11 @@
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setActiveIndexFilter } from "../../../redux/slices/filters";
 import { setActivePage } from "../../../redux/slices/pagination";
 
 import "./index.scss";
+import { RootState } from "../../../redux/store";
 
 const items = [
   "Все",
@@ -15,10 +17,10 @@ const items = [
 ];
 
 export default function Filter() {
-  const activeIndex = useSelector((state) => state.filters.activeIndexFilter);
+  const activeIndex = useSelector((state: RootState) => state.filters.activeIndexFilter);
   const dispatch = useDispatch();
 
-  const changeActiveIndex = (activeIndex) => {
+  const changeActiveIndex = (activeIndex: number) => {
     dispatch(setActiveIndexFilter(activeIndex));
     dispatch(setActivePage(0))
   };

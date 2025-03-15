@@ -4,7 +4,13 @@ import Skeleton from '../Skeleton';
 import Pagination from "../Pagination";
 import './index.scss';
 
-const Pizzas = React.memo(({ pizzas }) => {
+import { PizzaType } from "../../../types/PizzaTypes";
+
+interface PizzasTypes {
+  pizzas : PizzaType[]
+}
+
+const Pizzas: React.FC<PizzasTypes> = React.memo(({ pizzas }) => {
   const items = pizzas;
 
   return (

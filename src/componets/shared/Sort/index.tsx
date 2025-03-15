@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { setActiveSort } from "../../../redux/slices/filters";
@@ -35,24 +35,28 @@ const items = [
 export default function Sort() {
   const dispatch = useDispatch();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(1);
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const changeActiveIndex = (indexActive) => {
+  const changeActiveIndex = (indexActive: number) => {
     setActiveIndex(() => indexActive);
+
     dispatch(setActiveSort(items[indexActive]));
     setIsOpen(() => false);
   };
 
   useEffect(() => {
-    function closePopupSort(e) {
-      if (!e.target.closest(".sort")) {
+    function closePopupSort(e : MouseEvent) {
+      const target = e.target as HTMLElement;
+
+      if (target && !target.closest(".sort")) {
         setIsOpen(() => false);
       }
+
     }
     document.addEventListener("click", closePopupSort);
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -7,20 +8,23 @@ import Pizzas from "../componets/shared/Pizzas";
 import { setCountItems } from "../redux/slices/pagination";
 import { fetchPizzas, setPizzas } from "../redux/slices/pizzas";
 
+import { AppDispatch, RootState } from "../redux/store";
+import { PizzaType } from "../types/PizzaTypes";
+
 export default function Home() {
-  const dispatch = useDispatch();
-  const {items} = useSelector(state => state.pizzas);
+  const dispatch = useDispatch<AppDispatch>();
+  const {items} = useSelector((state : RootState) => state.pizzas);
 
   const {activeIndexFilter, activeSort} = useSelector(
-    (state) => state.filters
+    (state : RootState) => state.filters
   );
 
-  const activePage = useSelector(state => state.pagination.activePage);
+  const activePage = useSelector((state : RootState) => state.pagination.activePage);
 
   useEffect(() => {
     const getCountItems = async () => {
       try {
-        const result = await dispatch(fetchPizzas({activeIndexFilter, activeSort})).unwrap()
+        const result : PizzaType[] = await dispatch(fetchPizzas({activeIndexFilter, activeSort})).unwrap()
 
         getPizzas(result);
         dispatch(setCountItems(result.length));

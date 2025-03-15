@@ -1,6 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartPizzaType } from "../../types/PizzaTypes";
 
-const initialState = {
+interface CartType {
+  totalPrice: number;
+  totalCount: number;
+  items : CartPizzaType[];
+}
+
+interface RemoveItemPayload {
+  item: CartPizzaType;
+  delete: number; 
+}
+
+const initialState: CartType = {
   items: [],
   totalPrice: 0,
   totalCount: 0,
@@ -10,7 +22,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state, action : PayloadAction<CartPizzaType>) => {
       const cartItem = state.items.find((item) => {
         return (
           action.payload.id === item.id &&
@@ -31,7 +43,7 @@ export const cartSlice = createSlice({
       state.totalPrice += action.payload.price;
     },
 
-    removeItem: (state, action) => {
+    removeItem: (state, action: PayloadAction<RemoveItemPayload>) => {
       const {item} = action.payload
 
       if (action.payload.delete === 1) {
@@ -43,7 +55,10 @@ export const cartSlice = createSlice({
           );
         });
 
-        findItem.count -= 1
+        if (findItem) {
+          findItem.count -= 1
+        }
+
         state.totalCount -= 1
         state.totalPrice -= item.price
       } else if (action.payload.delete === 2) {

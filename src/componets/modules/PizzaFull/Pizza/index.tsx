@@ -1,9 +1,15 @@
+import React from "react";
 import { Link } from "react-router";
 
 import "./index.scss";
 
-export default function Pizza({pizza}) {
+import { PizzaType } from "../../../../types/PizzaTypes";
 
+interface PizzaProps {
+  pizza: PizzaType;
+}
+
+const Pizza: React.FC<PizzaProps> = ({ pizza }) => {
   return (
     <div className="pizzaInfo">
       <Link to={`/pizza/${pizza.id}`}>
@@ -32,4 +38,6 @@ export default function Pizza({pizza}) {
       </div>
     </div>
   );
-}
+};
+
+export default Pizza;

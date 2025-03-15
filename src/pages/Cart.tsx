@@ -1,3 +1,5 @@
+import React from "react";
+
 import CartSection from "../componets/modules/Cart/CartSection";
 
 export default function Cart() {

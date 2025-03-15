@@ -1,10 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { addItem } from "../../../../../redux/slices/cart";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { PizzaType } from "../../../../../types/PizzaTypes";
 
 import { Link } from "react-router";
+
+import { RootState } from "../../../../../redux/store";
 
 import "./index.scss";
 
@@ -24,26 +27,29 @@ const sizesNames = [
   },
 ];
 
-export default function Pizza({ item }) {
-  const count = useSelector(state => {
+interface PizzaProps {
+  item: PizzaType;
+}
+
+const Pizza: React.FC<PizzaProps> = ({ item }) => {
+  const count = useSelector((state: RootState) => {
     let countInner = 0;
 
     state.cart.items.map((pizza) => {
-      if (pizza.id === item.id) {
-        countInner += pizza.count
+      if (pizza.id === item.id && pizza.count) {
+        countInner += pizza.count;
       }
-    })
+    });
 
-    return countInner
-  }
-  )
+    return countInner;
+  });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [activeTypeIndex, setActiveTypeIndex] = useState(item.types[0]);
   const [activeSizeIndex, setActiveSizeIndex] = useState(item.sizes[0]);
 
-  const changeActiveIndex = (name, mean) => {
+  const changeActiveIndex = (name : string, mean: number) => {
     if (name === "type") {
       setActiveTypeIndex(() => mean);
     } else if (name === "size") {
@@ -52,9 +58,15 @@ export default function Pizza({ item }) {
   };
 
   const addPizzaInCart = () => {
-    const newObj = {...item, sizeActive: activeSizeIndex, typeActive: activeTypeIndex}
-    dispatch(addItem(newObj))
-  }
+    const newObj = {
+      ...item,
+      sizeActive: activeSizeIndex,
+      typeActive: activeTypeIndex,
+      count : 0,
+    };
+
+    dispatch(addItem(newObj));
+  };
 
   return (
     <div className="pizza">
@@ -120,7 +132,10 @@ export default function Pizza({ item }) {
             от {item.price} {item.currency}
           </p>
 
-          <button className={`cart-add ${count ? 'active' : ''}`} onClick={addPizzaInCart}>
+          <button
+            className={`cart-add ${count ? "active" : ""}`}
+            onClick={addPizzaInCart}
+          >
             <span className="cart-add__icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -149,4 +164,6 @@ export default function Pizza({ item }) {
       </div>
     </div>
   );
-}
+};
+
+export default Pizza;

@@ -1,11 +1,15 @@
+import React from "react";
 import { Link } from "react-router";
 
 import { useSelector } from "react-redux";
 
+import { RootState } from "../../../redux/store";
+
 import './index.scss';
 
 export default function Header() {
-  const {totalPrice, totalCount} = useSelector(state => state.cart)
+  const {totalPrice, totalCount} = useSelector((state: RootState) => state.cart);
+  
   return (
     <header className="header">
       <div className="container">

@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useEffect, useState, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, memo } from "react";
 
 import { Link } from "react-router";
 
@@ -11,13 +10,25 @@ import CartEmpty from "./part/Empty";
 import { clearCart } from "../../../../redux/slices/cart";
 
 import "./index.scss";
+import { RootState } from "../../../../redux/store";
+
+import { CartPizzaType } from "../../../../types/PizzaTypes";
+
+
+interface ItemEntry {
+  items: CartPizzaType[]; 
+}
+
+type ItemsBoxType = Record<string, ItemEntry>;
+
+
 
 const CartSection = memo(() => {
-  const [itemsBox, setItemsBox] = useState({});
+  const [itemsBox, setItemsBox] = useState<ItemsBoxType>({});
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.cart.items);
-  const { totalPrice, totalCount } = useSelector((state) => state.cart);
+  const items = useSelector((state : RootState) => state.cart.items);
+  const { totalPrice, totalCount } = useSelector((state : RootState) => state.cart);
 
   useEffect(() => {
     const newItemsBox = {};
@@ -143,7 +154,6 @@ const CartSection = memo(() => {
                             item?.typeActive
                           }
                           item={{ ...item }}
-                          setItemsBox={setItemsBox}
                         />
                       ))}
                     </div>
@@ -216,6 +226,6 @@ const CartSection = memo(() => {
       )}
     </>
   );
-})
+});
 
 export default CartSection;

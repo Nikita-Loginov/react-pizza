@@ -1,6 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface ActiveSort {
+  name : string,
+  icon : string,
+  detail: string;
+  sortProperty : string
+}
+
+interface FilterState {
+  activeIndexFilter: number;
+  activeSort: ActiveSort;
+}
+
+const initialState : FilterState = {
   activeIndexFilter: 0,
   activeSort: {
     name: "популярности",
@@ -14,11 +26,11 @@ export const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setActiveIndexFilter: (state, action) => {
+    setActiveIndexFilter: (state, action : PayloadAction<number>) => {
       state.activeIndexFilter = action.payload;
     },
     
-    setActiveSort: (state, action) => {
+    setActiveSort: (state, action : PayloadAction<ActiveSort>) => {
         state.activeSort = action.payload
     }
   },

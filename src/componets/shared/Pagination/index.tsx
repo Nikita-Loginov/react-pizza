@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import React,  { useEffect, useState } from "react";
 
 import "./index.scss";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import { setActivePage } from "../../../redux/slices/pagination";
+import { AppDispatch, RootState } from "../../../redux/store";
 
 export default function Pagination() {
-  const paginationInfo = useSelector((state => state.pagination));
-  const dispatch = useDispatch();
-  const [isPagination, setIsPagination] = useState(false);
+  const paginationInfo = useSelector(((state : RootState) => state.pagination));
+  const dispatch = useDispatch<AppDispatch>();
+  const [isPagination, setIsPagination] = useState<boolean>(false);
 
   useEffect(() => {
     const countPage = Math.ceil(paginationInfo.countItems / 4);
@@ -22,7 +23,7 @@ export default function Pagination() {
 
   const renderPagination = () => {
     const countPage = Math.ceil(paginationInfo.countItems / 4);
-    let html = [];
+    let html: React.ReactNode[] = [];
 
     if (countPage <= 1) {
       return null;
@@ -44,7 +45,7 @@ export default function Pagination() {
     }
   };
 
-  const changeActivePage = (value) => {
+  const changeActivePage = (value: string) => {
     const countPage = Math.ceil(paginationInfo.countItems / 4);
 
     if (value === 'next') {
