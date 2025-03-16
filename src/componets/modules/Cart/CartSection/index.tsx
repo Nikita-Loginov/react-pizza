@@ -33,7 +33,7 @@ const CartSection = memo(() => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const newItemsBox = {};
+    const newItemsBox: ItemsBoxType = {}
 
     items.forEach((item) => {
       if (newItemsBox[item.title]) {
@@ -235,4 +235,5 @@ const CartSection = memo(() => {
   );
 });
 
+CartSection.displayName = 'CartSection'
 export default CartSection;

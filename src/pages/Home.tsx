@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,6 +14,7 @@ import { PizzaType } from "../types/PizzaTypes";
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const {items} = useSelector((state : RootState) => state.pizzas);
+  const [isPizza, setIsPizza] = useState<boolean>(false);
 
   const {activeIndexFilter, activeSort} = useSelector(
     (state : RootState) => state.filters
@@ -22,6 +23,8 @@ export default function Home() {
   const activePage = useSelector((state : RootState) => state.pagination.activePage);
 
   useEffect(() => {
+    setIsPizza(false);
+    
     const getCountItems = async () => {
       try {
         const result : PizzaType[] = await dispatch(fetchPizzas({activeIndexFilter, activeSort})).unwrap()
@@ -33,11 +36,13 @@ export default function Home() {
       }
     };
 
-    const getPizzas = (items) => {
+    const getPizzas = (items : PizzaType[]) => {
       const arr = activePage
         ? items.slice(activePage * 4, 4 * activePage + 4)
         : items.slice(activePage, 4 * activePage + 4);
         dispatch(setPizzas((arr)))
+
+        setIsPizza(() => true)
     };
 
     getCountItems();
@@ -47,7 +52,7 @@ export default function Home() {
     <>
       <Top />
 
-      <Pizzas pizzas={items} />
+      {isPizza && <Pizzas pizzas={items} />}
     </>
   );
 }

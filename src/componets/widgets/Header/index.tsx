@@ -27,7 +27,8 @@ export default function Header() {
     if (localStorage.getItem('currency')) {
       localStorage.setItem('currency',JSON.stringify({icon, coefficient}))
     } else {
-      localStorage.setItem('currency', JSON.stringify({}))
+
+      localStorage.setItem('currency', JSON.stringify({icon : '₽', coefficient : 1}))
     }
 
     const priceItog =  calculateTotalPrice(items);

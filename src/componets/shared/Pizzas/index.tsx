@@ -10,7 +10,8 @@ interface PizzasTypes {
   pizzas : PizzaType[]
 }
 
-const Pizzas: React.FC<PizzasTypes> = React.memo(({ pizzas }) => {
+const Pizzas: React.FC<PizzasTypes> = (({ pizzas }) => {
+  console.log(pizzas)
   const items = pizzas;
 
   return (
@@ -32,4 +33,5 @@ const Pizzas: React.FC<PizzasTypes> = React.memo(({ pizzas }) => {
   );
 });
 
+Pizzas.displayName = 'Pizzas'
 export default Pizzas;
