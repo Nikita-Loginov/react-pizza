@@ -5,13 +5,14 @@
     padding: 20px;
     background-color: #fff;
     box-shadow: 7px 10px 12px 0px rgba(34, 60, 80, 0.2);
-    max-width: 300px;
+    max-width: 400px;
     border-radius: 20px;
 
     &__img {
         max-width: 100%;
         border-radius: 50%;
         margin: 0 auto;
+        text-align: center;
     }
 
     &__name {

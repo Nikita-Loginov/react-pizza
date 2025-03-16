@@ -3,8 +3,8 @@ import React from "react";
 import Count from "../../../../../shared/Count";
 import { removeItem } from "../../../../../../redux/slices/cart";
 
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../../../redux/store";
 
 import { CartPizzaType } from "../../../../../../types/PizzaTypes";
 
@@ -18,6 +18,7 @@ interface ItemTtype {
 
 const Item : React.FC<ItemTtype> = ({item}) => {
   const dispatch = useDispatch<AppDispatch>()
+  const {icon, coefficient} = useSelector((state: RootState) => state.currency);
 
   const deleteItem = () => {
     const info = {
@@ -46,9 +47,9 @@ const Item : React.FC<ItemTtype> = ({item}) => {
         <Count item={{...item}}/>
 
         <div className="cart-item__price">
-          <p className="cart-item__peice-num">{item.price}</p>
+          <p className="cart-item__peice-num">{(item.price / coefficient).toFixed(0)}</p>
 
-          <p className="cart-item__price-currenty">{item.currency}</p>
+          <p className="cart-item__price-currenty">{icon}</p>
         </div>
 
         <button className="cart-item__delete" onClick={deleteItem}>

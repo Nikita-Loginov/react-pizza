@@ -4,15 +4,19 @@ import { Link } from "react-router";
 import "./index.scss";
 
 import { PizzaType } from "../../../../types/PizzaTypes";
+import { RootState } from "../../../../redux/store";
+import { useSelector } from "react-redux";
 
 interface PizzaProps {
   pizza: PizzaType;
 }
 
 const Pizza: React.FC<PizzaProps> = ({ pizza }) => {
+    const {icon, coefficient} = useSelector((state: RootState) => state.currency);
+    
   return (
     <div className="pizzaInfo">
-      <Link to={`/pizza/${pizza.id}`}>
+      <Link to={`/pizza/${pizza.id}`} className="pizzaInfo__img">
         <img
           src={pizza.imageUrl}
           alt={pizza.title}
@@ -32,8 +36,7 @@ const Pizza: React.FC<PizzaProps> = ({ pizza }) => {
         <span> стоимость пиццы</span>
 
         <span>
-          {" "}
-          от {pizza.price} {pizza.currency}
+          от {(pizza.price / coefficient).toFixed(1)} {icon}
         </span>
       </div>
     </div>

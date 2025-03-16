@@ -43,6 +43,7 @@ const Pizza: React.FC<PizzaProps> = ({ item }) => {
 
     return countInner;
   });
+   const {icon, coefficient} = useSelector((state: RootState) => state.currency)
 
   const dispatch = useDispatch();
 
@@ -129,7 +130,7 @@ const Pizza: React.FC<PizzaProps> = ({ item }) => {
 
         <div className="pizza__details">
           <p className="pizza__price">
-            от {item.price} {item.currency}
+            от {((item.price / coefficient).toFixed(0))} {icon}
           </p>
 
           <button

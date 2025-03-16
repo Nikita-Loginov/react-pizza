@@ -28,9 +28,9 @@ const CartSection = memo(() => {
   const [itemsBox, setItemsBox] = useState<ItemsBoxType>({});
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const dispatch = useDispatch();
-
+  const {icon, coefficient} = useSelector((state: RootState) => state.currency);
   const items = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const newItemsBox = {};
@@ -182,9 +182,9 @@ const CartSection = memo(() => {
                     <span>Сумма заказа: </span>
 
                     <div className="cart__itog-price-summ">
-                      <span>{totalPrice}</span>
+                      <span>{(totalPrice / coefficient).toFixed(0)}</span>
 
-                      <span>₽</span>
+                      <span>{icon}</span>
                     </div>
                   </div>
                 </div>

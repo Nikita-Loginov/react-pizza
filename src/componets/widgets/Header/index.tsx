@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import Currency from "../../shared/Сurrency";
 
 import { useSelector } from "react-redux";
 
@@ -13,6 +14,7 @@ export default function Header() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
   const {items} = useSelector((state: RootState) => state.cart);
+  const {icon,coefficient} = useSelector((state: RootState) => state.currency)
 
 
   useEffect(() => {
@@ -22,13 +24,19 @@ export default function Header() {
       localStorage.setItem('cart', JSON.stringify([]))
     }
 
+    if (localStorage.getItem('currency')) {
+      localStorage.setItem('currency',JSON.stringify({icon, coefficient}))
+    } else {
+      localStorage.setItem('currency', JSON.stringify({}))
+    }
+
     const priceItog =  calculateTotalPrice(items);
     const countItog =  calculateTotalCount(items);
 
     setTotalPrice(() => priceItog)
     setTotalCount(() => countItog)
     
-  }, [items])
+  }, [items, icon])
   
   return (
     <header className="header">
@@ -57,6 +65,8 @@ export default function Header() {
             </div>
           </Link>
 
+          <Currency />
+
           <Link
             to="/cart"
             className="header__details"
@@ -64,9 +74,9 @@ export default function Header() {
             title="Корзина"
           >
             <div className="header__details-item header__details-price">
-              <span className="header__details-price-summ">{totalPrice}</span>
+              <span className="header__details-price-summ">{(totalPrice / coefficient).toFixed(0)}</span>
 
-              <span className="header__details-price-currenty">₽</span>
+              <span className="header__details-price-currenty">{icon}</span>
             </div>
 
             <div className="header__details-item header__details-count">

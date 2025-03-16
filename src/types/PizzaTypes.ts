@@ -12,6 +12,6 @@ export type PizzaType = {
 
 export type CartPizzaType = PizzaType & {
   sizeActive?: number;
-  typeActive?: number;
+  typeActive: number;
   count : number;
 }
