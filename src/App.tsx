@@ -3,8 +3,6 @@ import React, { Suspense } from "react";
 import Header from "./componets/widgets/Header";
 import { Routes, Route } from "react-router";
 
-export const MyContext = React.createContext([]);
-
 const Home = React.lazy(() => import("./pages/Home"));
 const Cart = React.lazy(() => import("./pages/Cart"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));

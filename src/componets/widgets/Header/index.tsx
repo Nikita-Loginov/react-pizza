@@ -9,28 +9,21 @@ import { RootState } from "../../../redux/store";
 import { calculateTotalPrice, calculateTotalCount } from "../../../utils/functions/cart";
 
 import './index.scss';
+import { actionsLS } from "../../../utils/functions/localStorage";
 
 export default function Header() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const {items} = useSelector((state: RootState) => state.cart);
+  const {items, countIndicator} = useSelector((state: RootState) => state.cart);
   const {icon,coefficient} = useSelector((state: RootState) => state.currency)
 
 
   useEffect(() => {
-    if (localStorage.getItem('cart')) {
-      localStorage.setItem('cart',JSON.stringify(items))
-    } else {
-      localStorage.setItem('cart', JSON.stringify([]))
-    }
+    actionsLS('currency', {icon : '₽', coefficient : 1}, {icon, coefficient})
+    actionsLS('cart', [], items)
+    actionsLS('indicator', {countIndicator : 0}, {countIndicator})
 
-    if (localStorage.getItem('currency')) {
-      localStorage.setItem('currency',JSON.stringify({icon, coefficient}))
-    } else {
-
-      localStorage.setItem('currency', JSON.stringify({icon : '₽', coefficient : 1}))
-    }
-
+    
     const priceItog =  calculateTotalPrice(items);
     const countItog =  calculateTotalCount(items);
 
@@ -87,6 +80,8 @@ export default function Header() {
 
               <span className="header__details-count-number">{totalCount}</span>
             </div>
+
+           {countIndicator > 0 ? <span className="header__details-indicator">{countIndicator}</span> : ''}
           </Link>
         </div>
       </div>

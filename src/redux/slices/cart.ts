@@ -3,6 +3,7 @@ import { CartPizzaType } from "../../types/PizzaTypes";
 
 interface CartType {
   items : CartPizzaType[];
+  countIndicator: number
 }
 
 interface RemoveItemPayload {
@@ -10,15 +11,26 @@ interface RemoveItemPayload {
   delete: number; 
 }
 
+interface indicatorType {
+  mean: string
+}
+
+
 const getPizzasInLC = () : CartPizzaType[] => {
   const pizzas = localStorage.getItem('cart');
 
   return pizzas ? JSON.parse(pizzas) : []
 }
 
+const getCountIndicatorInLC = () => {
+  const info = localStorage.getItem('indicator');
+
+  return info ? JSON.parse(info).countIndicator : []
+}
 
 const initialState: CartType = {
   items: getPizzasInLC(),
+  countIndicator : getCountIndicatorInLC()
 };
 
 export const cartSlice = createSlice({
@@ -77,9 +89,17 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
+
+    changeCountIndicator : (state, action: PayloadAction<indicatorType>) => {
+      if (action.payload.mean === 'plus') {
+        state.countIndicator++
+      } else {
+        state.countIndicator = 0
+      }
+    }
   },
 });
 
-export const { addItem, clearCart, removeItem } = cartSlice.actions;
+export const { addItem, clearCart, removeItem, changeCountIndicator } = cartSlice.actions;
 
 export default cartSlice.reducer;

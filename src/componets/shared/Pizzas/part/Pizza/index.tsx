@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { addItem } from "../../../../../redux/slices/cart";
+import { addItem, changeCountIndicator} from "../../../../../redux/slices/cart";
 import { useSelector, useDispatch } from "react-redux";
 
 import { PizzaType } from "../../../../../types/PizzaTypes";
@@ -67,6 +67,7 @@ const Pizza: React.FC<PizzaProps> = ({ item }) => {
     };
 
     dispatch(addItem(newObj));
+    dispatch(changeCountIndicator({mean: 'plus'}))
   };
 
   return (

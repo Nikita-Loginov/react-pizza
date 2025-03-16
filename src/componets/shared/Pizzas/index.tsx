@@ -11,7 +11,6 @@ interface PizzasTypes {
 }
 
 const Pizzas: React.FC<PizzasTypes> = (({ pizzas }) => {
-  console.log(pizzas)
   const items = pizzas;
 
   return (
